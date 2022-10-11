@@ -1,0 +1,24 @@
+{
+  "name": "pern-todo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "tsc": "tsc",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/irvingvjuarez/pern-todo.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/irvingvjuarez/pern-todo/issues"
+  },
+  "homepage": "https://github.com/irvingvjuarez/pern-todo#readme",
+  "devDependencies": {
+    "typescript": "^4.8.4"
+  }
+}
