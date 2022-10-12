@@ -54,7 +54,15 @@ export class TaskController {
 		}
 	}
 
-	deleteTask(_req: Request, res: Response) {
-		res.send("Task has been deleted")
+	deleteTask(req: Request, res: Response) {
+		const { id } = req.params
+		const index = tasks.findIndex(task => task.id === id)
+
+		if (index >= 0) {
+			const deletedTask = tasks.splice(index, 1)
+			res.json(deletedTask)
+		} else {
+			res.status(404).send("Item not found")
+		}
 	}
 }
