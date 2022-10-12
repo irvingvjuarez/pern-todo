@@ -4,7 +4,7 @@ import { faker } from "@faker-js/faker"
 export class TaskController {
 	getAllTasks(req: Request, res: Response) {
 		const { limit } = req.query
-		const arrSize = limit || 20
+		const arrSize = Number(limit) || 20
 
 		const tasks = new Array(arrSize).fill(0).map((_task) => ({
 			id: faker.datatype.uuid(),
@@ -15,8 +15,14 @@ export class TaskController {
 		res.json(tasks)
 	}
 
-	getOneTask(_req: Request, res: Response) {
-		res.send("Returning only one task")
+	getOneTask(req: Request, res: Response) {
+		const { id } = req.params
+
+		res.json({
+			id,
+			content: faker.company.catchPhrase(),
+			createdAt: faker.date.past()
+		})
 	}
 
 	createTask(_req: Request, res: Response) {
