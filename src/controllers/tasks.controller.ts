@@ -2,8 +2,11 @@ import { Request, Response } from "express"
 import { faker } from "@faker-js/faker"
 
 export class TaskController {
-	getAllTasks(_req: Request, res: Response) {
-		const tasks = new Array(20).fill(0).map((_task) => ({
+	getAllTasks(req: Request, res: Response) {
+		const { limit } = req.query
+		const arrSize = limit || 20
+
+		const tasks = new Array(arrSize).fill(0).map((_task) => ({
 			id: faker.datatype.uuid(),
 			content: faker.company.catchPhrase(),
 			created_at: faker.date.past()

@@ -6,7 +6,7 @@ class TaskController {
     getAllTasks(_req, res) {
         const tasks = new Array(20).fill(0).map((_task) => ({
             id: faker_1.faker.datatype.uuid(),
-            content: faker_1.faker.lorem.lines(),
+            content: faker_1.faker.company.catchPhrase(),
             created_at: faker_1.faker.date.past()
         }));
         res.json(tasks);
