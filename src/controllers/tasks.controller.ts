@@ -40,8 +40,17 @@ export class TaskController {
 		}
 	}
 
-	updateTask(_req: Request, res: Response) {
-		res.send("Updating an existing task")
+	updateTask(req: Request, res: Response) {
+		const { body } = req
+
+		if (!body.content) {
+			res.send("Body parameter not provided")
+		} else {
+			// TODO: Add the new task to the database
+			res.json({
+				...body
+			})
+		}
 	}
 
 	deleteTask(_req: Request, res: Response) {
