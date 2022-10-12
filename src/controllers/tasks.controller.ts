@@ -9,12 +9,13 @@ export class TaskController {
 
 	getOneTask(req: Request, res: Response) {
 		const { id } = req.params
+		const task = tasks.find(task => task.id === id)
 
-		res.json({
-			id,
-			content: faker.company.catchPhrase(),
-			createdAt: faker.date.past()
-		})
+		if (task) {
+			res.json(task)
+		} else {
+			res.status(404).send("Item not found")
+		}
 	}
 
 	createTask(req: Request, res: Response) {
