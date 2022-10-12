@@ -21,8 +21,15 @@ class TaskController {
             createdAt: faker_1.faker.date.past()
         });
     }
-    createTask(_req, res) {
-        res.send("Creating a new task");
+    createTask(req, res) {
+        const { body } = req;
+        if (!body.content) {
+            res.send("Body parameter not provided");
+        }
+        else {
+            // TODO: Add the new task to the database
+            res.json(Object.assign(Object.assign({}, body), { id: faker_1.faker.datatype.uuid(), createdAt: faker_1.faker.date.past() }));
+        }
     }
     updateTask(_req, res) {
         res.send("Updating an existing task");

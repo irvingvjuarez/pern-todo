@@ -25,8 +25,19 @@ export class TaskController {
 		})
 	}
 
-	createTask(_req: Request, res: Response) {
-		res.send("Creating a new task")
+	createTask(req: Request, res: Response) {
+		const { body } = req
+
+		if (!body.content) {
+			res.send("Body parameter not provided")
+		} else {
+			// TODO: Add the new task to the database
+			res.json({
+				...body,
+				id: faker.datatype.uuid(),
+				createdAt: faker.date.past()
+			})
+		}
 	}
 
 	updateTask(_req: Request, res: Response) {
