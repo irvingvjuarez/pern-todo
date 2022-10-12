@@ -36,15 +36,21 @@ export class TaskController {
 	}
 
 	updateTask(req: Request, res: Response) {
-		const { body } = req
+		const { body, params } = req
+		const { id } = params
+		const index = tasks.findIndex(task => task.id === id)
 
-		if (!body.content) {
-			res.send("Body parameter not provided")
-		} else {
-			// TODO: Add the new task to the database
-			res.json({
+		if(index >= 0) {
+			const taskToUpdate = tasks[index]
+			const newTask = {
+				...taskToUpdate,
 				...body
-			})
+			}
+
+			tasks[index] = newTask
+			res.json(newTask)
+		} else {
+			res.status(404).send("Item not found")
 		}
 	}
 
