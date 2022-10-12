@@ -54,6 +54,6 @@ export class TaskController {
 	}
 
 	deleteTask(_req: Request, res: Response) {
-		res.send("Deleting a task")
+		res.send("Task has been deleted")
 	}
 }
