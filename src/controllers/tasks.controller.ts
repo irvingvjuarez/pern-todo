@@ -1,17 +1,9 @@
 import { Request, Response } from "express"
 import { faker } from "@faker-js/faker"
+import tasks from "../data/tasks.json"
 
 export class TaskController {
-	getAllTasks(req: Request, res: Response) {
-		const { limit } = req.query
-		const arrSize = Number(limit) || 20
-
-		const tasks = new Array(arrSize).fill(0).map((_task) => ({
-			id: faker.datatype.uuid(),
-			content: faker.company.catchPhrase(),
-			created_at: faker.date.past()
-		}))
-
+	getAllTasks(_req: Request, res: Response) {
 		res.json(tasks)
 	}
 
