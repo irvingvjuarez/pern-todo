@@ -1,9 +1,12 @@
 import { Request, Response } from "express"
 import { faker } from "@faker-js/faker"
 import tasks from "../data/tasks.json"
+import { db } from "../db"
 
 export class TaskController {
-	getAllTasks(_req: Request, res: Response) {
+	async getAllTasks(_req: Request, res: Response) {
+		const data = await db.query("SELECT * FROM tasks")
+		console.log(data)
 		res.json(tasks)
 	}
 
