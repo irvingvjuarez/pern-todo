@@ -5,3 +5,9 @@
 .section {
 	@apply bg-sub-bg w-[90%] mx-auto my-3 p-2 rounded-md sm:p-3;
 }
+
+@layer base {
+	h2{
+		@apply font-medium tracking-wider;
+	}
+}

@@ -8,7 +8,7 @@ function App() {
   return (
     <div className="App">
 			<PageContainer>
-				<h2 className='text-2xl font-medium tracking-wider'>
+				<h2 className='text-2xl'>
 					Input Todo
 				</h2>
 
