@@ -12,7 +12,8 @@ module.exports = {
 	theme: {
 		colors: {
 			"sub-bg": "#dfe5cd",
-			"contrast": "#0ea5e9"
+			"contrast": "#0ea5e9",
+			"white": "fff"
 		}
 	}
 	// corePlugins: {
