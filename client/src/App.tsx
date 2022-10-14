@@ -2,6 +2,7 @@ import { PageContainer } from './containers/PageContainer'
 import { InlineForm } from './components/InlineForm'
 import { InputBox } from './components/InputBox'
 import { Button } from './components/Button'
+import { TaskList } from './containers/TaskList'
 
 function App() {
   return (
@@ -15,6 +16,8 @@ function App() {
 					<InputBox />
 					<Button />
 				</InlineForm>
+
+				<TaskList />
 			</PageContainer>
     </div>
   )
