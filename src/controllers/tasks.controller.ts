@@ -5,9 +5,14 @@ import { db } from "../db"
 
 export class TaskController {
 	async getAllTasks(_req: Request, res: Response) {
-		const data = await db.query("SELECT * FROM tasks")
-		console.log(data)
-		res.json(tasks)
+		try {
+			const data = await db.query("SELECT * FROM tasks")
+			const tasks = data.rows
+			res.json(tasks)
+		} catch (err) {
+			const { message } = err as Error
+			res.status(500).send(message)
+		}
 	}
 
 	getOneTask(req: Request, res: Response) {
