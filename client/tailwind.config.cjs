@@ -12,6 +12,7 @@ module.exports = {
 	theme: {
 		colors: {
 			"sub-bg": "#dfe5cd",
+			"sub-dark": "#a1a1a1",
 			"contrast": "#0ea5e9",
 			"white": "fff"
 		}

@@ -1,3 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.section {
+	@apply bg-sub-bg w-[90%] mx-auto my-3 p-2 rounded-md sm:p-3;
+}
