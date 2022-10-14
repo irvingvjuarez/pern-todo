@@ -9,4 +9,9 @@ module.exports = {
     extend: {},
   },
   plugins: [],
+	theme: {
+		colors: {
+			"sub-bg": "#dfe5cd"
+		}
+	}
 }
