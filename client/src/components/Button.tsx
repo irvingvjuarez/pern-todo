@@ -1,5 +1,7 @@
 export const Button = () => {
 	return(
-		<button>Button</button>
+		<button className="font-bold bg-contrast text-[#fff] rounded-sm p-1">
+			Add
+		</button>
 	)
 }

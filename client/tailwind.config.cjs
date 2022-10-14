@@ -11,7 +11,11 @@ module.exports = {
   plugins: [],
 	theme: {
 		colors: {
-			"sub-bg": "#dfe5cd"
+			"sub-bg": "#dfe5cd",
+			"contrast": "#0ea5e9"
 		}
 	}
+	// corePlugins: {
+	// 	preflight: false
+	// }
 }

@@ -1,6 +1,5 @@
 import { PageContainer } from './containers/PageContainer'
 import { InlineForm } from './components/InlineForm'
-import './App.css'
 import { InputBox } from './components/InputBox'
 import { Button } from './components/Button'
 
