@@ -1,5 +1,4 @@
 import { Request, Response } from "express"
-import { faker } from "@faker-js/faker"
 import tasks from "../data/tasks.json"
 import { db } from "../db"
 
@@ -26,20 +25,20 @@ export class TaskController {
 		}
 	}
 
-	createTask(req: Request, res: Response) {
+	async createTask(req: Request, res: Response) {
 		const { body: {content} } = req
 
 		if (!content) {
-			res.send("Body parameter not provided")
+			res.status(500).send("Body parameter not provided")
 		} else {
-			const newTask = {
-				id: faker.datatype.uuid(),
-				content,
-				created_at: new Date().toString()
+			try {
+				const data = await db.query("INSERT INTO tasks(content) VALUES($1) RETURNING", content)
+				const createdTask = data.rows
+				res.json(createdTask)
+			} catch(err) {
+				const { message } = err as Error
+				res.status(505).send(message)
 			}
-
-			tasks.push(newTask)
-			res.json(newTask)
 		}
 	}
 
