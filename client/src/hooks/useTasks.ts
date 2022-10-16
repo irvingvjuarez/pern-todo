@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react"
 import { Task } from "../../../types"
+import { TASKS_API } from "../globals"
 
 export const useTasks = () => {
 	const [tasks, setTasks] = useState<Task[]>([])
@@ -9,7 +10,7 @@ export const useTasks = () => {
 		const controller = new AbortController()
 		const { signal } = controller
 
-		fetch("http://localhost:3000/api/v1/tasks", {signal})
+		fetch(TASKS_API, {signal})
 			.then(res => res.json())
 			.then(data => {
 				setLoading(false)

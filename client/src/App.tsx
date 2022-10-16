@@ -3,8 +3,29 @@ import { InlineForm } from './components/InlineForm'
 import { InputBox } from './components/InputBox'
 import { Button } from './components/Button'
 import { TaskList } from './containers/TaskList'
+import { useState } from 'react'
+import { TASKS_API } from './globals'
 
 function App() {
+	const [task, setTask] = useState("")
+	const handleChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
+		setTask(evt.target.value)
+	}
+	const handleSubmit = () => {
+		fetch(TASKS_API, {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json"
+			},
+			body: task
+		}).then(res => res.json())
+			.then(data => {
+				console.log({
+					data
+				})
+			})
+	}
+
   return (
     <div className="App">
 			<PageContainer>
@@ -12,8 +33,8 @@ function App() {
 					Input Todo
 				</h2>
 
-				<InlineForm>
-					<InputBox />
+				<InlineForm onSubmit={handleSubmit}>
+					<InputBox onChange={handleChange} />
 					<Button />
 				</InlineForm>
 
