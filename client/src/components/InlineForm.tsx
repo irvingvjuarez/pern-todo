@@ -1,6 +1,6 @@
 interface InlineFormProps {
 	children: JSX.Element | Array<JSX.Element>
-	onSubmit?: () => void
+	onSubmit?: (e: React.FormEvent<HTMLFormElement>) => void
 }
 
 export const InlineForm: React.FC<InlineFormProps> = (props) => {

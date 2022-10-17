@@ -11,13 +11,18 @@ function App() {
 	const handleChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
 		setTask(evt.target.value)
 	}
-	const handleSubmit = () => {
+	const handleSubmit = (evt: React.FormEvent<HTMLFormElement>) => {
+		evt.preventDefault()
+
 		fetch(TASKS_API, {
 			method: "POST",
 			headers: {
-				"Content-Type": "application/json"
+				"Content-Type": "application/json",
+				"Accept": "application/json"
 			},
-			body: task
+			body: JSON.stringify({
+				content: task
+			})
 		}).then(res => res.json())
 			.then(data => {
 				console.log({
