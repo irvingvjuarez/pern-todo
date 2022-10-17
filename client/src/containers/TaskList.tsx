@@ -1,7 +1,7 @@
 import { useTasks } from "../hooks/useTasks"
-import { SlOptionsVertical } from "react-icons/sl"
 import { Message } from "../components/Message"
 import { Row } from "../components/Row"
+import { ToggleOptions } from "../components/ToggleOptions"
 
 export const TaskList = () => {
 	const { tasks, loading } = useTasks()
@@ -19,9 +19,7 @@ export const TaskList = () => {
 					{tasks.map(task => (
 						<Row key={task.id}>
 							<p>{task.content}</p>
-							<div className="flex justify-center items-center">
-								<SlOptionsVertical className="text-center" />
-							</div>
+							<ToggleOptions />
 						</Row>
 					))}
 				</>
