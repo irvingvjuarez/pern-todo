@@ -1,12 +1,13 @@
 import { useTasks } from "../hooks/useTasks"
 import { SlOptionsVertical } from "react-icons/sl"
+import { Message } from "../components/Message"
 
 export const TaskList = () => {
 	const { tasks, loading } = useTasks()
 
 	return (
 		<section className="section">
-			{loading && <span className="my-3 block">Loading...</span>}
+			{loading && <Message content="Loading..." />}
 
 			{!loading && tasks.length > 0 && (
 				<>
@@ -25,9 +26,7 @@ export const TaskList = () => {
 			)}
 
 			{!loading && tasks.length <= 0 && (
-				<span className="my-3 block">
-					No tasks available.
-				</span>
+				<Message content="No tasks available." />
 			)}
 		</section>
 	)
