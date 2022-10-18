@@ -1,4 +1,5 @@
 import { ToggleOptions } from "../components/ToggleOptions"
+import { Icon } from "../components/Icon"
 import { AiFillEdit } from "react-icons/ai"
 import { RiDeleteBin6Fill } from "react-icons/ri"
 
@@ -16,8 +17,8 @@ export const Row: React.FC<RowProps> = ({ content, variant = "standard" }) => {
 				<>
 					<p>{content}</p>
 					<ToggleOptions className="sm:hidden" />
-					<AiFillEdit />
-					<RiDeleteBin6Fill />
+					<Icon iconComponent={() => AiFillEdit} />
+					<Icon iconComponent={() => RiDeleteBin6Fill} />
 				</>
 			) : (
 				<>
