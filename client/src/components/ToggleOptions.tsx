@@ -1,6 +1,7 @@
 import { SlOptionsVertical } from "react-icons/sl"
 import { useToggleOptions } from "../hooks/useToggleOptions"
 import { ToggledMenu } from "./ToggledMenu"
+import { ConditionalNode } from "./ConditionalNode"
 
 export const ToggleOptions = () => {
 	const { open, handleClick, toggleOpen, menuRef } = useToggleOptions()
@@ -9,10 +10,9 @@ export const ToggleOptions = () => {
 		<div className="flex justify-center items-center relative" onClick={handleClick}>
 			<SlOptionsVertical className="text-center"/>
 
-			{open && <ToggledMenu
-				onBlur={toggleOpen}
-				menuRef={menuRef}
-			/>}
+			<ConditionalNode condition={open}>
+				<ToggledMenu onBlur={toggleOpen} menuRef={menuRef} />
+			</ConditionalNode>
 		</div>
 	)
 }
