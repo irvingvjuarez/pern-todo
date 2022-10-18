@@ -8,7 +8,7 @@ export const ToggledMenu: React.FC<ToggledMenuProps> = ({ menuRef, onBlur }) => 
 		<ul
 			tabIndex={-1}
 			ref={menuRef}
-			className="absolute right-full top-0 bg-sub-bg border-contrast border-2 p-2"
+			className="absolute right-full top-0 bg-sub-bg border-contrast border-2 p-2 outline-none"
 			onBlur={onBlur}
 		>
 			<li>Edit</li>
