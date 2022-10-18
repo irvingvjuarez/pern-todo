@@ -32,7 +32,7 @@ export class TaskController {
 			res.status(500).send("Body parameter not provided")
 		} else {
 			try {
-				const data = await db.query(`INSERT INTO tasks(content) VALUES('${content} RETURNING *')`)
+				const data = await db.query(`INSERT INTO tasks(content) VALUES('${content}') RETURNING *`)
 				res.json(data)
 			} catch(err) {
 				const { message } = err as Error
