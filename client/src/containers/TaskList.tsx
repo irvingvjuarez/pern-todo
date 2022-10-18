@@ -1,7 +1,7 @@
 import { useTasks } from "../hooks/useTasks"
 import { Message } from "../components/Message"
 import { Row } from "../components/Row"
-import { ToggleOptions } from "../components/ToggleOptions"
+
 
 export const TaskList = () => {
 	const { tasks, loading } = useTasks()
@@ -12,15 +12,10 @@ export const TaskList = () => {
 
 			{!loading && tasks.length > 0 && (
 				<>
-					<Row>
-						<h2>Task</h2>
-					</Row>
+					<Row variant="header" content="Tasks" />
 
-					{tasks.map(task => (
-						<Row key={task.id}>
-							<p>{task.content}</p>
-							<ToggleOptions />
-						</Row>
+					{tasks.map(({id, content}) => (
+						<Row key={id} content={content} />
 					))}
 				</>
 			)}
