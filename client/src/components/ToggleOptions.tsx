@@ -1,21 +1,8 @@
-import { useRef, useState } from "react"
 import { SlOptionsVertical } from "react-icons/sl"
+import { useToggleOptions } from "../hooks/useToggleOptions"
 
 export const ToggleOptions = () => {
-	const menuRef = useRef<HTMLUListElement | null>(null)
-	const [open, setOpen] = useState(false)
-	const toggleOpen = () => setOpen(prev => {
-		if (!prev) {
-			setTimeout(() => {
-				menuRef.current?.focus()
-			}, 0)
-		}
-		return !prev
-	})
-	const handleClick = (evt: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-		evt.stopPropagation()
-		toggleOpen()
-	}
+	const { open, handleClick, toggleOpen, menuRef } = useToggleOptions()
 
 	return (
 		<div className="flex justify-center items-center relative" onClick={handleClick}>
