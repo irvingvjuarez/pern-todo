@@ -52,6 +52,7 @@ export const useTasks = () => {
 		tasks,
 		loading,
 		handleChange,
-		handleSubmit
+		handleSubmit,
+		taskInput
 	}
 }

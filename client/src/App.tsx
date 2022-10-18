@@ -6,7 +6,7 @@ import { TaskList } from './containers/TaskList'
 import { useTasks } from './hooks/useTasks'
 
 function App() {
-	const { handleChange, handleSubmit } = useTasks()
+	const { handleChange, handleSubmit, taskInput } = useTasks()
 
   return (
     <div className="App">
@@ -16,7 +16,10 @@ function App() {
 				</h2>
 
 				<InlineForm onSubmit={handleSubmit}>
-					<InputBox onChange={handleChange} />
+					<InputBox
+						inputValue={taskInput}
+						onChange={handleChange}
+					/>
 					<Button />
 				</InlineForm>
 
