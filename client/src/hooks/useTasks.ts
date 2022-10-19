@@ -35,16 +35,16 @@ export const useTasks = () => {
 	}
 
 	const deleteTask = async (id: number) => {
-		const request = await fetch(`${TASKS_API}/id`, {
+		const request = await fetch(`${TASKS_API}/${id}`, {
 			method: "DELETE",
 			headers: {
 				"Content-Type": "application/json",
 				"Accept": "application/json"
 			},
 		})
-		console.log({
-			request
-		})
+		const data = await request.json()
+		const deletedTaskId = data.rows[0].id
+		setTasks(prevTasks => prevTasks.filter(task => task.id !== deletedTaskId))
 	}
 
 	useEffect(() => {

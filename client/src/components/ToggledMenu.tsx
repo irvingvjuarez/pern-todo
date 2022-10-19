@@ -1,5 +1,6 @@
 import { useContext } from "react"
 import { TaskContext } from "../contexts/taskContext";
+import { useTasks } from "../hooks/useTasks";
 
 interface ToggledMenuProps {
 	menuRef: React.MutableRefObject<HTMLUListElement | null>;
@@ -8,6 +9,7 @@ interface ToggledMenuProps {
 
 export const ToggledMenu: React.FC<ToggledMenuProps> = ({ menuRef, onBlur }) => {
 	const taskId = useContext(TaskContext)
+	const { deleteTask } = useTasks()
 
 	return (
 		<ul
@@ -17,7 +19,7 @@ export const ToggledMenu: React.FC<ToggledMenuProps> = ({ menuRef, onBlur }) => 
 			onBlur={onBlur}
 		>
 			<li>Edit</li>
-			<li>Delete</li>
+			<li onClick={() => deleteTask(taskId)}>Delete</li>
 		</ul>
 	)
 }
