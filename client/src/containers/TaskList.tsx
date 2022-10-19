@@ -15,7 +15,7 @@ export const TaskList = () => {
 					<Row variant="header" content="Tasks" />
 
 					{tasks.map(({id, content}) => (
-						<Row key={id} content={content} />
+						<Row key={id} content={content} id={id} />
 					))}
 				</>
 			)}
