@@ -8,9 +8,6 @@ interface ToggledMenuProps {
 
 export const ToggledMenu: React.FC<ToggledMenuProps> = ({ menuRef, onBlur }) => {
 	const taskId = useContext(TaskContext)
-	console.log({
-		taskId
-	})
 
 	return (
 		<ul

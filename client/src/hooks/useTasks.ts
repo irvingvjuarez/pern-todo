@@ -34,6 +34,19 @@ export const useTasks = () => {
 			})
 	}
 
+	const deleteTask = async (id: number) => {
+		const request = await fetch(`${TASKS_API}/id`, {
+			method: "DELETE",
+			headers: {
+				"Content-Type": "application/json",
+				"Accept": "application/json"
+			},
+		})
+		console.log({
+			request
+		})
+	}
+
 	useEffect(() => {
 		const controller = new AbortController()
 		const { signal } = controller
@@ -53,6 +66,7 @@ export const useTasks = () => {
 		loading,
 		handleChange,
 		handleSubmit,
-		taskInput
+		taskInput,
+		deleteTask
 	}
 }
