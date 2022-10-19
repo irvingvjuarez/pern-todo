@@ -60,15 +60,35 @@ export class TaskController {
 		}
 	}
 
-	deleteTask(req: Request, res: Response) {
+	async deleteTask(req: Request, res: Response) {
 		const { id } = req.params
-		const index = tasks.findIndex(task => task.id === id)
-
-		if (index >= 0) {
-			const deletedTask = tasks.splice(index, 1)
-			res.json(deletedTask)
-		} else {
-			res.status(404).send("Item not found")
+		try {
+			const data = await db.query(`DELETE FROM tasks WHERE id = ${id} RETURNING *`)
+			res.json(data)
+		} catch(err) {
+			const { message } = err as Error
+			res.status(500).send(message)
 		}
+
+		// const index = tasks.findIndex(task => task.id == id)
+
+		// if (index >= 0) {
+		// 	const deletedTask = tasks.splice(index, 1)
+		// 	res.json(deletedTask)
+		// } else {
+		// 	res.status(404).send("Item not found")
+		// }
+
+		// if (!content) {
+		// 	res.status(500).send("Body parameter not provided")
+		// } else {
+		// 	try {
+		// 		const data = await db.query(`INSERT INTO tasks(content) VALUES('${content}') RETURNING *`)
+		// 		res.json(data)
+		// 	} catch(err) {
+		// 		const { message } = err as Error
+		// 		res.status(505).send(message)
+		// 	}
+		// }
 	}
 }
