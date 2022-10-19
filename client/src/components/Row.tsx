@@ -13,7 +13,7 @@ interface RowProps {
 export const Row: React.FC<RowProps> = ({ content, id, variant = "standard" }) => {
 
 	return (
-		<TaskContext.Provider value={id || 0}>
+		<TaskContext.Provider value={id || NaN}>
 			<div
 				className="w-full grid grid-cols-[1fr_25px] justify-between px-1 py-2 border-b-2 border-sub-dark rounded-sm sm:grid-cols-[1fr_35px_60px]"
 			>
