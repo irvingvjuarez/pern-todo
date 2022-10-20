@@ -1,19 +1,26 @@
 import { createSlice, configureStore } from "@reduxjs/toolkit";
-import { Task } from "../../../types";
 import { EActionTypes } from "./actions.types";
+import { initialState } from "./initialState";
 
 const tasksSlice = createSlice({
 	name: "tasks",
-	initialState: [],
+	initialState: initialState,
 	reducers: {
 		[EActionTypes.setInitial](state, action) {
-			state = action.payload
+			state = {
+				...state,
+				tasks: action.payload
+			}
 		},
-		[EActionTypes.add](state: Task[], action) {
-			state = [...state, action.payload]
+		[EActionTypes.add](state, action) {
+			const { tasks } = state
+			const newTasks = [...tasks, action.payload]
+			state.tasks = newTasks
 		},
-		[EActionTypes.substract](state: Task[], action) {
-			state = state.filter(task => task.id !== action.payload)
+		[EActionTypes.substract](state, action) {
+			const { tasks } = state
+			const newTasks = tasks.filter(task => task.id !== action.payload)
+			state.tasks = newTasks
 		}
 	}
 })
