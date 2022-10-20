@@ -3,17 +3,13 @@ import { useDispatch } from "react-redux"
 import { TASKS_API } from "../globals"
 import { EActionTypes } from "../stores/actions.types"
 import { TasksActions } from "../stores"
+import { getFetchConfig } from "../services/getFetchConfig"
 
-const getFetchConfig = (method: "POST" | "DELETE", content?: unknown) => ({
-	method,
-	headers: {
-		"Content-Type": "application/json",
-		"Accept": "application/json"
-	},
-	body: JSON.stringify({
-		content
-	})
-})
+const fetchRequest = async (url: string, config?: RequestInit) => {
+	const request = await fetch(url, config);
+	const data = await request.json();
+	return data
+}
 
 export const useTasks = () => {
 	const [taskInput, setTaskInput] = useState("")
@@ -25,10 +21,9 @@ export const useTasks = () => {
 
 	const handleSubmit = async (evt: React.FormEvent<HTMLFormElement>) => {
 		evt.preventDefault()
-		const fetchConfig = getFetchConfig("POST", taskInput)
 
-		const request = await fetch(TASKS_API, fetchConfig);
-		const data = await request.json()
+		const fetchConfig = getFetchConfig("POST", taskInput)
+		const data = await fetchRequest(TASKS_API, fetchConfig) as any
 		const newTask = data.rows[0]
 
 		setTaskInput("")
@@ -37,9 +32,9 @@ export const useTasks = () => {
 
 	const deleteTask = async (id: number) => {
 		const fetchConfig = getFetchConfig("DELETE")
-		const request = await fetch(`${TASKS_API}/${id}`, fetchConfig)
-		const data = await request.json()
+		const data = await fetchRequest(`${TASKS_API}/${id}`, fetchConfig)
 		const deletedTaskId = data.rows[0].id
+
 		dispatch(TasksActions[EActionTypes.substract](deletedTaskId))
 	}
 
@@ -47,11 +42,12 @@ export const useTasks = () => {
 		const controller = new AbortController()
 		const { signal } = controller
 
-		fetch(TASKS_API, {signal})
-			.then(res => res.json())
-			.then(data => {
-				dispatch(TasksActions[EActionTypes.setInitial](data))
-			})
+		const getTasks = async () => {
+			const data = await fetchRequest(TASKS_API, {signal})
+			dispatch(TasksActions[EActionTypes.setInitial](data))
+		}
+
+		getTasks()
 
 		return () => controller.abort()
 	}, [])
