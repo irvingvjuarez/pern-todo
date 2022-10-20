@@ -58,9 +58,7 @@ export const useTasks = () => {
 		fetch(TASKS_API, {signal})
 			.then(res => res.json())
 			.then(data => {
-				setLoading(false)
 				dispatch(TasksActions[EActionTypes.setInitial](data))
-				setTasks(data)
 			})
 
 		return () => controller.abort()

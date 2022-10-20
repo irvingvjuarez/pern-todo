@@ -7,7 +7,7 @@ import { ConditionalNode } from "../components/ConditionalNode"
 export const TaskList = () => {
 	const tasks = useSelector((state: InitialState) => state.tasks)
 	const loading = useSelector((state: InitialState) => state.loading)
-	const areTasksAvailable = !loading && tasks.length > 0
+	const areTasksAvailable = !loading && tasks.length > 0 // false
 
 	return (
 		<section className="section">
@@ -18,11 +18,11 @@ export const TaskList = () => {
 			<ConditionalNode condition={areTasksAvailable}>
 				<Row variant="header" content="Tasks" />
 				<>{tasks.map(({id, content}) =>
-						<Row key={id} content={content} id={id} />
+					<Row key={id} content={content} id={id} />
 				)}</>
 			</ConditionalNode>
 
-			<ConditionalNode condition={!areTasksAvailable}>
+			<ConditionalNode condition={!areTasksAvailable && !loading}>
 				<Message content="No tasks available." />
 			</ConditionalNode>
 		</section>
