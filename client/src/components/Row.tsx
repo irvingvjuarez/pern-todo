@@ -3,6 +3,7 @@ import { Icon } from "../components/Icon"
 import { AiFillEdit } from "react-icons/ai"
 import { RiDeleteBin6Fill } from "react-icons/ri"
 import { TaskContext } from "../contexts/taskContext";
+import { useTasks } from "../hooks/useTasks";
 
 interface RowProps {
 	content: string;
@@ -11,6 +12,7 @@ interface RowProps {
 }
 
 export const Row: React.FC<RowProps> = ({ content, id, variant = "standard" }) => {
+	const { deleteTask } = useTasks()
 
 	return (
 		<TaskContext.Provider value={id || NaN}>
@@ -22,8 +24,14 @@ export const Row: React.FC<RowProps> = ({ content, id, variant = "standard" }) =
 						<p>{content}</p>
 						<ToggleOptions className="sm:hidden" />
 
-						<Icon iconComponent={() => AiFillEdit} />
-						<Icon iconComponent={() => RiDeleteBin6Fill} />
+						<Icon
+							onClick={() => console.log("Hi")}
+							iconComponent={() => AiFillEdit}
+						/>
+						<Icon
+							onClick={() => deleteTask(id as number)}
+							iconComponent={() => RiDeleteBin6Fill}
+						/>
 					</>
 				) : (
 					<>

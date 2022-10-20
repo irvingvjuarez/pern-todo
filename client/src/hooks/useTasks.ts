@@ -47,7 +47,7 @@ export const useTasks = () => {
 		})
 		const data = await request.json()
 		const deletedTaskId = data.rows[0].id
-		setTasks(prevTasks => prevTasks.filter(task => task.id !== deletedTaskId))
+		dispatch(TasksActions[EActionTypes.substract](deletedTaskId))
 	}
 
 	useEffect(() => {
