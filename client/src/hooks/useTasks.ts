@@ -1,22 +1,20 @@
 import { useState, useEffect } from "react"
 import { useDispatch } from "react-redux"
-import { Task } from "../../../types"
 import { TASKS_API } from "../globals"
 import { EActionTypes } from "../stores/actions.types"
 import { TasksActions } from "../stores"
 
 export const useTasks = () => {
-	const [tasks, setTasks] = useState<Task[]>([])
 	const [taskInput, setTaskInput] = useState("")
-	const [loading, setLoading] = useState(true)
 	const dispatch = useDispatch()
 
 	const handleChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
 		setTaskInput(evt.target.value)
 	}
 
-	const handleSubmit = (evt: React.FormEvent<HTMLFormElement>) => {
+	const handleSubmit = async (evt: React.FormEvent<HTMLFormElement>) => {
 		evt.preventDefault()
+
 		const fetchConfig = {
 			method: "POST",
 			headers: {
@@ -28,13 +26,12 @@ export const useTasks = () => {
 			})
 		}
 
-		fetch(TASKS_API, fetchConfig)
-			.then(res => res.json())
-			.then(data => {
-				const newTask = data.rows[0]
-				setTaskInput("")
-				dispatch(TasksActions[EActionTypes.add](newTask))
-			})
+		const request = await fetch(TASKS_API, fetchConfig);
+		const data = await request.json()
+		const newTask = data.rows[0]
+
+		setTaskInput("")
+		dispatch(TasksActions[EActionTypes.add](newTask))
 	}
 
 	const deleteTask = async (id: number) => {
@@ -64,8 +61,6 @@ export const useTasks = () => {
 	}, [])
 
 	return {
-		tasks,
-		loading,
 		handleChange,
 		handleSubmit,
 		taskInput,
