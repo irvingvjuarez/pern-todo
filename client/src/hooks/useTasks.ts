@@ -4,12 +4,7 @@ import { TASKS_API } from "../globals"
 import { EActionTypes } from "../stores/actions.types"
 import { TasksActions } from "../stores"
 import { getFetchConfig } from "../services/getFetchConfig"
-
-const fetchRequest = async (url: string, config?: RequestInit) => {
-	const request = await fetch(url, config);
-	const data = await request.json();
-	return data
-}
+import { fetchRequest } from "../services/fetchRequest"
 
 export const useTasks = () => {
 	const [taskInput, setTaskInput] = useState("")
