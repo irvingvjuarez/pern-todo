@@ -4,6 +4,17 @@ import { TASKS_API } from "../globals"
 import { EActionTypes } from "../stores/actions.types"
 import { TasksActions } from "../stores"
 
+const getFetchConfig = (method: "POST" | "DELETE", content?: unknown) => ({
+	method,
+	headers: {
+		"Content-Type": "application/json",
+		"Accept": "application/json"
+	},
+	body: JSON.stringify({
+		content
+	})
+})
+
 export const useTasks = () => {
 	const [taskInput, setTaskInput] = useState("")
 	const dispatch = useDispatch()
@@ -14,17 +25,7 @@ export const useTasks = () => {
 
 	const handleSubmit = async (evt: React.FormEvent<HTMLFormElement>) => {
 		evt.preventDefault()
-
-		const fetchConfig = {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-				"Accept": "application/json"
-			},
-			body: JSON.stringify({
-				content: taskInput
-			})
-		}
+		const fetchConfig = getFetchConfig("POST", taskInput)
 
 		const request = await fetch(TASKS_API, fetchConfig);
 		const data = await request.json()
@@ -35,13 +36,8 @@ export const useTasks = () => {
 	}
 
 	const deleteTask = async (id: number) => {
-		const request = await fetch(`${TASKS_API}/${id}`, {
-			method: "DELETE",
-			headers: {
-				"Content-Type": "application/json",
-				"Accept": "application/json"
-			},
-		})
+		const fetchConfig = getFetchConfig("DELETE")
+		const request = await fetch(`${TASKS_API}/${id}`, fetchConfig)
 		const data = await request.json()
 		const deletedTaskId = data.rows[0].id
 		dispatch(TasksActions[EActionTypes.substract](deletedTaskId))
