@@ -7,7 +7,7 @@ export interface InitialState {
 }
 
 export const initialState: InitialState = {
-	loading: false,
+	loading: true,
 	error: null,
 	tasks: []
 }
