@@ -17,8 +17,7 @@ export const useTasks = () => {
 
 	const handleSubmit = (evt: React.FormEvent<HTMLFormElement>) => {
 		evt.preventDefault()
-
-		fetch(TASKS_API, {
+		const fetchConfig = {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
@@ -27,14 +26,14 @@ export const useTasks = () => {
 			body: JSON.stringify({
 				content: taskInput
 			})
-		}).then(res => res.json())
+		}
+
+		fetch(TASKS_API, fetchConfig)
+			.then(res => res.json())
 			.then(data => {
 				const newTask = data.rows[0]
 				setTaskInput("")
-				setTasks(prev => ({
-					...prev,
-					newTask
-				}))
+				dispatch(TasksActions[EActionTypes.add](newTask))
 			})
 	}
 
