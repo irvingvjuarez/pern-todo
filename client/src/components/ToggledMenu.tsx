@@ -10,7 +10,9 @@ interface ToggledMenuProps {
 export const ToggledMenu: React.FC<ToggledMenuProps> = ({ menuRef, onBlur }) => {
 	const {id: taskId, dispatch} = useContext(rowContext)
 	const { deleteTask, updateTask } = useTasks()
-	const handleEdit = () => dispatch({ type: "toggleEditMode" })
+	const handleEdit = () => {
+		if (dispatch) dispatch({ type: "toggleEditMode" })
+	}
 
 	return (
 		<ul

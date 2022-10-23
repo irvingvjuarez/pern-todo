@@ -1,14 +1,12 @@
-import React, { useReducer } from "react";
+import React from "react";
 import { ToggleOptions } from "../components/ToggleOptions"
 import { Icon } from "../components/Icon"
 import { AiFillEdit } from "react-icons/ai"
 import { RiDeleteBin6Fill } from "react-icons/ri"
 import { rowContext as RowContext } from "../contexts/taskContext";
 import { useTasks } from "../hooks/useTasks";
+import { useRow } from "../hooks/useRow";
 import { ConditionalNode } from "../components/ConditionalNode"
-import { getRowContextValue } from "../services/getRowContextValue"
-import { rowReducer } from "../reduces/rowReducer"
-import { Action, IRowContext, RowState } from "../../types"
 
 interface RowProps {
 	content: string;
@@ -18,19 +16,14 @@ interface RowProps {
 
 export const Row: React.FC<RowProps> = ({ content, id, variant = "standard" }) => {
 	const { deleteTask, updateTask } = useTasks()
-	const contextValue = getRowContextValue(id || NaN)
-	const [rowState, dispatch] = useReducer(rowReducer as () => RowState, contextValue as RowState)
-	const rowInitialValue: RowState = {
-		...rowState as unknown as IRowContext,
-		dispatch
-	}
+	const { rowState } = useRow(id || NaN)
 
-	if (rowInitialValue.isInEditMode) {
+	if (rowState.isInEditMode) {
 		console.log("Transform to input")
 	}
 
 	return (
-		<RowContext.Provider value={rowInitialValue}>
+		<RowContext.Provider value={rowState}>
 			<div className="row">
 				<ConditionalNode condition={variant === "standard"}>
 					<p>{content}</p>
