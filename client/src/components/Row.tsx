@@ -13,7 +13,7 @@ interface RowProps {
 }
 
 export const Row: React.FC<RowProps> = ({ content, id, variant = "standard" }) => {
-	const { deleteTask } = useTasks()
+	const { deleteTask, updateTask } = useTasks()
 
 	return (
 		<TaskContext.Provider value={id || NaN}>
@@ -25,7 +25,7 @@ export const Row: React.FC<RowProps> = ({ content, id, variant = "standard" }) =
 					<ToggleOptions className="sm:hidden" />
 
 					<Icon
-						onClick={() => console.log("Hi")}
+						onClick={() => updateTask(id as number)}
 						iconComponent={() => AiFillEdit}
 					/>
 					<Icon

@@ -9,7 +9,7 @@ interface ToggledMenuProps {
 
 export const ToggledMenu: React.FC<ToggledMenuProps> = ({ menuRef, onBlur }) => {
 	const taskId = useContext(TaskContext)
-	const { deleteTask } = useTasks()
+	const { deleteTask, updateTask } = useTasks()
 
 	return (
 		<ul
@@ -18,7 +18,7 @@ export const ToggledMenu: React.FC<ToggledMenuProps> = ({ menuRef, onBlur }) => 
 			className="absolute right-full top-0 bg-sub-bg border-contrast border-2 p-2 outline-none"
 			onBlur={onBlur}
 		>
-			<li>Edit</li>
+			<li onClick={() => updateTask(taskId)}>Edit</li>
 			<li onClick={() => deleteTask(taskId)}>Delete</li>
 		</ul>
 	)

@@ -33,11 +33,15 @@ export const useTasks = () => {
 		dispatch(TasksActions[EActionTypes.substract](deletedTaskId))
 	}
 
+	const updateTask = async (id: number) => {
+		console.log(`ID #${id} updated`)
+	}
+
 	useEffect(() => {
 		const controller = new AbortController()
-		const { signal } = controller
 
 		const getTasks = async () => {
+			const { signal } = controller
 			const data = await fetchRequest(TASKS_API, {signal})
 			dispatch(TasksActions[EActionTypes.setInitial](data))
 		}
@@ -51,6 +55,7 @@ export const useTasks = () => {
 		handleChange,
 		handleSubmit,
 		taskInput,
-		deleteTask
+		deleteTask,
+		updateTask
 	}
 }
