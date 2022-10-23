@@ -1,3 +1,6 @@
 import { createContext } from "react"
 
-export const TaskContext = createContext(NaN)
+export const RowContext = createContext({
+	id: NaN,
+	isInEditMode: false
+})

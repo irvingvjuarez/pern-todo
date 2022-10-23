@@ -2,9 +2,10 @@ import { ToggleOptions } from "../components/ToggleOptions"
 import { Icon } from "../components/Icon"
 import { AiFillEdit } from "react-icons/ai"
 import { RiDeleteBin6Fill } from "react-icons/ri"
-import { TaskContext } from "../contexts/taskContext";
+import { RowContext } from "../contexts/taskContext";
 import { useTasks } from "../hooks/useTasks";
 import { ConditionalNode } from "../components/ConditionalNode"
+import { getRowContextValue } from "../services/getRowContextValue"
 
 interface RowProps {
 	content: string;
@@ -14,12 +15,11 @@ interface RowProps {
 
 export const Row: React.FC<RowProps> = ({ content, id, variant = "standard" }) => {
 	const { deleteTask, updateTask } = useTasks()
+	const contextValue = getRowContextValue(id || NaN)
 
 	return (
-		<TaskContext.Provider value={id || NaN}>
-			<div
-				className="w-full grid grid-cols-[1fr_25px] justify-between px-1 py-2 border-b-2 border-sub-dark rounded-sm sm:grid-cols-[1fr_35px_60px]"
-			>
+		<RowContext.Provider value={contextValue}>
+			<div className="row">
 				<ConditionalNode condition={variant === "standard"}>
 					<p>{content}</p>
 					<ToggleOptions className="sm:hidden" />
@@ -40,6 +40,6 @@ export const Row: React.FC<RowProps> = ({ content, id, variant = "standard" }) =
 					<h3 className="hidden sm:block">Remove</h3>
 				</ConditionalNode>
 			</div>
-		</TaskContext.Provider>
+		</RowContext.Provider>
 	)
 }
