@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react"
+import React, { useState, useEffect } from "react"
 import { useDispatch } from "react-redux"
 import { TASKS_API } from "../globals"
 import { EActionTypes } from "../stores/actions.types"
@@ -33,8 +33,10 @@ export const useTasks = () => {
 		dispatch(TasksActions[EActionTypes.substract](deletedTaskId))
 	}
 
-	const updateTask = async (id: number) => {
-		console.log(`ID #${id} updated`)
+	const updateTask = async (id: number, rowDispatch: React.Dispatch<any>) => {
+		rowDispatch({
+			type: "toggleEditMode"
+		})
 	}
 
 	useEffect(() => {

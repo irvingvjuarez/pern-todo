@@ -7,7 +7,7 @@
 }
 
 .row {
-	@apply w-full grid grid-cols-[1fr_25px] justify-between px-1 py-2 border-b-2 border-sub-dark rounded-sm sm:grid-cols-[1fr_35px_60px];
+	@apply w-full grid justify-between px-1 py-2 border-b-2 border-sub-dark rounded-sm;
 }
 
 @layer base {
