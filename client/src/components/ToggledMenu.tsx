@@ -1,5 +1,5 @@
 import { useContext } from "react"
-import { RowContext } from "../contexts/taskContext";
+import { rowContext } from "../contexts/taskContext";
 import { useTasks } from "../hooks/useTasks";
 
 interface ToggledMenuProps {
@@ -8,7 +8,7 @@ interface ToggledMenuProps {
 }
 
 export const ToggledMenu: React.FC<ToggledMenuProps> = ({ menuRef, onBlur }) => {
-	const {id: taskId, dispatch} = useContext(RowContext)
+	const {id: taskId, dispatch} = useContext(rowContext)
 	const { deleteTask, updateTask } = useTasks()
 	const handleEdit = () => dispatch({ type: "toggleEditMode" })
 

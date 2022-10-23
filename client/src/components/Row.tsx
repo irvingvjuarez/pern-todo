@@ -1,12 +1,14 @@
+import React, { useReducer } from "react";
 import { ToggleOptions } from "../components/ToggleOptions"
 import { Icon } from "../components/Icon"
 import { AiFillEdit } from "react-icons/ai"
 import { RiDeleteBin6Fill } from "react-icons/ri"
-import { RowContext } from "../contexts/taskContext";
+import { rowContext as RowContext } from "../contexts/taskContext";
 import { useTasks } from "../hooks/useTasks";
 import { ConditionalNode } from "../components/ConditionalNode"
 import { getRowContextValue } from "../services/getRowContextValue"
-import { useReducer } from "react";
+import { rowReducer } from "../reduces/rowReducer"
+import { Action, IRowContext, RowState } from "../../types"
 
 interface RowProps {
 	content: string;
@@ -14,35 +16,12 @@ interface RowProps {
 	variant?: "header" | "standard"
 }
 
-interface RowContext {
-	id: number;
-	isInEditMode: boolean;
-}
-
-interface RowState extends RowContext {
-	dispatch: () => void
-}
-
-const rowReducer = (state, action) => {
-	const { type, payload } = action
-
-	switch (type) {
-		case "toggleEditMode":
-			return {
-				...state,
-				isInEditMode: !state.isInEditMode
-			}
-		default:
-			return state
-	}
-}
-
 export const Row: React.FC<RowProps> = ({ content, id, variant = "standard" }) => {
 	const { deleteTask, updateTask } = useTasks()
 	const contextValue = getRowContextValue(id || NaN)
-	const [rowState, dispatch] = useReducer(rowReducer, contextValue)
-	const rowInitialValue = {
-		...rowState as unknown as RowContext,
+	const [rowState, dispatch] = useReducer(rowReducer as () => RowState, contextValue as RowState)
+	const rowInitialValue: RowState = {
+		...rowState as unknown as IRowContext,
 		dispatch
 	}
 

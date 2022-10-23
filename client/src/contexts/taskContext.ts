@@ -1,7 +1,7 @@
 import { createContext } from "react"
 
-export const RowContext = createContext({
+export const rowContext = createContext({
 	id: NaN,
 	isInEditMode: false,
-	dispatch: (obj: any) => null
+	dispatch: null
 })
