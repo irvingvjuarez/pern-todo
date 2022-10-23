@@ -6,6 +6,7 @@ import { RowContext } from "../contexts/taskContext";
 import { useTasks } from "../hooks/useTasks";
 import { ConditionalNode } from "../components/ConditionalNode"
 import { getRowContextValue } from "../services/getRowContextValue"
+import { useReducer } from "react";
 
 interface RowProps {
 	content: string;
@@ -13,12 +14,44 @@ interface RowProps {
 	variant?: "header" | "standard"
 }
 
+interface RowContext {
+	id: number;
+	isInEditMode: boolean;
+}
+
+interface RowState extends RowContext {
+	dispatch: () => void
+}
+
+const rowReducer = (state, action) => {
+	const { type, payload } = action
+
+	switch (type) {
+		case "toggleEditMode":
+			return {
+				...state,
+				isInEditMode: !state.isInEditMode
+			}
+		default:
+			return state
+	}
+}
+
 export const Row: React.FC<RowProps> = ({ content, id, variant = "standard" }) => {
 	const { deleteTask, updateTask } = useTasks()
 	const contextValue = getRowContextValue(id || NaN)
+	const [rowState, dispatch] = useReducer(rowReducer, contextValue)
+	const rowInitialValue = {
+		...rowState as unknown as RowContext,
+		dispatch
+	}
+
+	if (rowInitialValue.isInEditMode) {
+		console.log("Transform to input")
+	}
 
 	return (
-		<RowContext.Provider value={contextValue}>
+		<RowContext.Provider value={rowInitialValue}>
 			<div className="row">
 				<ConditionalNode condition={variant === "standard"}>
 					<p>{content}</p>
