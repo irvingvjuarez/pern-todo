@@ -19,6 +19,21 @@ const tasksSlice = createSlice({
 			const { tasks } = state
 			const newTasks = tasks.filter(task => task.id !== action.payload)
 			state.tasks = newTasks
+		},
+		[EActionTypes.replace](state, action) {
+			const { tasks } = state
+			const { payload: { id, content } } = action
+
+			const updatedTaskIndex = tasks.findIndex(task => task.id !== id)
+			if (updatedTaskIndex) {
+				const actualTask = state.tasks[updatedTaskIndex]
+				const newTask = {
+					...actualTask,
+					content
+				}
+
+				state.tasks[updatedTaskIndex] = newTask
+			}
 		}
 	}
 })

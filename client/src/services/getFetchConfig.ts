@@ -1,4 +1,4 @@
-export const getFetchConfig = (method: "POST" | "DELETE", content?: unknown) => ({
+export const getFetchConfig = (method: "POST" | "DELETE" | "PUT", content?: unknown) => ({
 	method,
 	headers: {
 		"Content-Type": "application/json",

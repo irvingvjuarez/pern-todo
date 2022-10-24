@@ -33,8 +33,19 @@ export const useTasks = () => {
 		dispatch(TasksActions[EActionTypes.substract](deletedTaskId))
 	}
 
-	const updateTask = async (id: number) => {
+	const updateTask = async (id: number, rowDispatch: React.Dispatch<any>, content: string) => {
+		rowDispatch({
+			type: "toggleEditMode"
+		})
 
+		const fetchConfig = getFetchConfig("PUT", content);
+		const data = await fetchRequest(`${TASKS_API}/${id}`, fetchConfig)
+		const updatedTask = data.rows[0].id
+
+		dispatch(TasksActions[EActionTypes.replace])({
+			id: updatedTask,
+			content
+		})
 	}
 
 	const setEditMode = (id: number, rowDispatch: React.Dispatch<any>) => {

@@ -1,5 +1,6 @@
 export enum EActionTypes {
 	add,
 	substract,
-	setInitial
+	setInitial,
+	replace
 }

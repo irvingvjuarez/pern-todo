@@ -1,4 +1,4 @@
-import React, {Dispatch} from "react"
+import React, {Dispatch, useState} from "react"
 import { ConditionalNode } from "../components/ConditionalNode"
 import { InputBox } from "../components/InputBox"
 import { Button } from "../components/Button"
@@ -17,15 +17,28 @@ interface StandardRowProps {
 }
 
 export const StandardRow: React.FC<StandardRowProps> = ({ rowId, content, editMode, dispatch }) => {
-	const { deleteTask, setEditMode } = useTasks()
-	const toggleEditMode = () => dispatch({ type: "toggleEditMode" })
+	const { deleteTask, setEditMode, updateTask } = useTasks()
+	const [newContent, setNewContent] = useState(content)
+	const handleUpdate = () => {
+		updateTask(
+			rowId as number,
+			dispatch as unknown as Dispatch<any>,
+			newContent
+		);
+	}
 
 	return(
 		<>
 			<ConditionalNode condition={editMode}>
 				<div className="flex w-full justify-between space-x-1">
-					<InputBox inputValue={content} />
-					<Button title="Done" onClick={toggleEditMode} />
+					<InputBox
+						inputValue={content}
+						onChange={(evt) => setNewContent(evt.target.value)}
+					/>
+					<Button
+						title="Done"
+						onClick={handleUpdate}
+					/>
 				</div>
 			</ConditionalNode>
 
