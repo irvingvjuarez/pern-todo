@@ -41,22 +41,14 @@ export class TaskController {
 		}
 	}
 
-	updateTask(req: Request, res: Response) {
-		const { body, params } = req
-		const { id } = params
-		const index = tasks.findIndex(task => task.id === id)
-
-		if(index >= 0) {
-			const taskToUpdate = tasks[index]
-			const newTask = {
-				...taskToUpdate,
-				...body
-			}
-
-			tasks[index] = newTask
-			res.json(newTask)
-		} else {
-			res.status(404).send("Item not found")
+	async updateTask(req: Request, res: Response) {
+		const { params: {id}, body: {content} } = req
+		try {
+			const data = await db.query(`UPDATE tasks SET content ='${content}' WHERE id = ${id} RETURNING *`)
+			res.json(data)
+		} catch(err) {
+			const { message } = err as Error
+			res.status(500).send(message)
 		}
 	}
 
@@ -69,26 +61,5 @@ export class TaskController {
 			const { message } = err as Error
 			res.status(500).send(message)
 		}
-
-		// const index = tasks.findIndex(task => task.id == id)
-
-		// if (index >= 0) {
-		// 	const deletedTask = tasks.splice(index, 1)
-		// 	res.json(deletedTask)
-		// } else {
-		// 	res.status(404).send("Item not found")
-		// }
-
-		// if (!content) {
-		// 	res.status(500).send("Body parameter not provided")
-		// } else {
-		// 	try {
-		// 		const data = await db.query(`INSERT INTO tasks(content) VALUES('${content}') RETURNING *`)
-		// 		res.json(data)
-		// 	} catch(err) {
-		// 		const { message } = err as Error
-		// 		res.status(505).send(message)
-		// 	}
-		// }
 	}
 }
