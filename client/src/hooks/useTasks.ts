@@ -33,7 +33,11 @@ export const useTasks = () => {
 		dispatch(TasksActions[EActionTypes.substract](deletedTaskId))
 	}
 
-	const updateTask = async (id: number, rowDispatch: React.Dispatch<any>) => {
+	const updateTask = async (id: number) => {
+
+	}
+
+	const setEditMode = (id: number, rowDispatch: React.Dispatch<any>) => {
 		rowDispatch({
 			type: "toggleEditMode"
 		})
@@ -58,6 +62,7 @@ export const useTasks = () => {
 		handleSubmit,
 		taskInput,
 		deleteTask,
-		updateTask
+		updateTask,
+		setEditMode
 	}
 }

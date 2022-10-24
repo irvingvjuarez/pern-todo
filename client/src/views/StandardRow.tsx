@@ -17,14 +17,15 @@ interface StandardRowProps {
 }
 
 export const StandardRow: React.FC<StandardRowProps> = ({ rowId, content, editMode, dispatch }) => {
-	const { deleteTask, updateTask } = useTasks()
+	const { deleteTask, setEditMode } = useTasks()
+	const toggleEditMode = () => dispatch({ type: "toggleEditMode" })
 
 	return(
 		<>
 			<ConditionalNode condition={editMode}>
 				<div className="flex w-full justify-between space-x-1">
 					<InputBox inputValue={content} />
-					<Button title="Done" />
+					<Button title="Done" onClick={toggleEditMode} />
 				</div>
 			</ConditionalNode>
 
@@ -32,7 +33,7 @@ export const StandardRow: React.FC<StandardRowProps> = ({ rowId, content, editMo
 				<p>{content}</p>
 				<ToggleOptions className="sm:hidden" />
 				<Icon
-					onClick={() => updateTask(rowId as number, dispatch as unknown as Dispatch<any>)}
+					onClick={() => setEditMode(rowId as number, dispatch as unknown as Dispatch<any>)}
 					iconComponent={() => AiFillEdit}
 				/>
 				<Icon

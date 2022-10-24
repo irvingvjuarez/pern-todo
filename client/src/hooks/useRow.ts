@@ -1,5 +1,5 @@
 import { useReducer } from "react"
-import { IRowContext, RowState } from "../../types"
+import { RowState } from "../../types"
 import { rowReducer } from "../reduces/rowReducer"
 import { getRowContextValue } from "../services/getRowContextValue"
 
