@@ -32,7 +32,7 @@ export const StandardRow: React.FC<StandardRowProps> = ({ rowId, content, editMo
 			<ConditionalNode condition={editMode}>
 				<div className="flex w-full justify-between space-x-1">
 					<InputBox
-						inputValue={content}
+						defaultValue={content}
 						onChange={(evt) => setNewContent(evt.target.value)}
 					/>
 					<Button

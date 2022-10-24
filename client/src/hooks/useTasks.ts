@@ -42,10 +42,10 @@ export const useTasks = () => {
 		const data = await fetchRequest(`${TASKS_API}/${id}`, fetchConfig)
 		const updatedTask = data.rows[0].id
 
-		dispatch(TasksActions[EActionTypes.replace])({
+		dispatch(TasksActions[EActionTypes.replace]({
 			id: updatedTask,
 			content
-		})
+		}))
 	}
 
 	const setEditMode = (id: number, rowDispatch: React.Dispatch<any>) => {
